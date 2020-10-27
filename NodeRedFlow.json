@@ -1,0 +1,999 @@
+[
+    {
+        "id": "7f309b8e.76138c",
+        "type": "tab",
+        "label": "FlowCodeFürGithub",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a8f11561.66be38",
+        "type": "comment",
+        "z": "7f309b8e.76138c",
+        "name": "UID der RFID Karte empfangen per MQTT empfangen und zugeordnete Playlist starten",
+        "info": "",
+        "x": 380,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "3f3ffc5f.a74974",
+        "type": "mqtt in",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "topic": "Sonos/Kind1",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "92eec3fd.c48a38",
+        "x": 130,
+        "y": 360,
+        "wires": [
+            [
+                "7da481a4.658c8",
+                "ea79f98b.03c888"
+            ]
+        ]
+    },
+    {
+        "id": "66788f23.ffbea",
+        "type": "key-value-write",
+        "z": "7f309b8e.76138c",
+        "store": "316a9d4.22170e2",
+        "action": "set",
+        "key": "",
+        "keyvalue": "",
+        "name": "Neue Playlists schreiben",
+        "x": 870,
+        "y": 780,
+        "wires": [
+            [
+                "59658b99.3f77e4"
+            ]
+        ]
+    },
+    {
+        "id": "59658b99.3f77e4",
+        "type": "debug",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1090,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "8c15de39.f1fa98",
+        "type": "key-value-read",
+        "z": "7f309b8e.76138c",
+        "store": "316a9d4.22170e2",
+        "key": "",
+        "name": "",
+        "x": 410,
+        "y": 360,
+        "wires": [
+            [
+                "ce0ef2fc.ed5e4",
+                "8c079b6f.aa59a",
+                "f26dfd12.e19e4"
+            ]
+        ]
+    },
+    {
+        "id": "7da481a4.658c8",
+        "type": "change",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 420,
+        "wires": [
+            [
+                "8c15de39.f1fa98"
+            ]
+        ]
+    },
+    {
+        "id": "d75dbe1b.901f68",
+        "type": "ui_form",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "label": "",
+        "group": "86343ee9.2d5b4",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "UID der RFID Karte",
+                "value": "UID",
+                "type": "text",
+                "required": true
+            },
+            {
+                "label": "Playlist",
+                "value": "Playlist",
+                "type": "text",
+                "required": true
+            }
+        ],
+        "formValue": {
+            "UID": "",
+            "Playlist": ""
+        },
+        "payload": "",
+        "submit": "Einfügen",
+        "cancel": "Verwerfen",
+        "topic": "",
+        "x": 190,
+        "y": 760,
+        "wires": [
+            [
+                "aea48967.33418"
+            ]
+        ]
+    },
+    {
+        "id": "7625a51a.f14404",
+        "type": "change",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Playlist",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 760,
+        "wires": [
+            [
+                "66788f23.ffbea"
+            ]
+        ]
+    },
+    {
+        "id": "aea48967.33418",
+        "type": "change",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.UID",
+                "pt": "msg",
+                "to": "topic",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 760,
+        "wires": [
+            [
+                "7625a51a.f14404"
+            ]
+        ]
+    },
+    {
+        "id": "c58193b2.a8604",
+        "type": "comment",
+        "z": "7f309b8e.76138c",
+        "name": "GUI für Sonos",
+        "info": "",
+        "x": 170,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "ea79f98b.03c888",
+        "type": "ui_text",
+        "z": "7f309b8e.76138c",
+        "group": "86343ee9.2d5b4",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "UID der letzten gelesenen RFID Karte",
+        "label": "UID der letzten gelesenen RFID Karte",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 270,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "7deaec16.32d8b4",
+        "type": "ui_button",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "group": "380ffa3e.f220e6",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Start / Pause",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "fa-play",
+        "payload": "toggleplayback",
+        "payloadType": "str",
+        "topic": "",
+        "x": 150,
+        "y": 980,
+        "wires": [
+            [
+                "44b8574e.31491",
+                "5cd4c374.f43024"
+            ]
+        ]
+    },
+    {
+        "id": "ce0ef2fc.ed5e4",
+        "type": "ui_text",
+        "z": "7f309b8e.76138c",
+        "group": "86343ee9.2d5b4",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Damit verknüpfte Playlist",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 570,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "5f3d1d71.6d02bc",
+        "type": "ui_text",
+        "z": "7f309b8e.76138c",
+        "group": "86343ee9.2d5b4",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Neue Karten hinzufügen:",
+        "format": "",
+        "layout": "row-spread",
+        "x": 230,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "d82b126.83d87f",
+        "type": "ui_button",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "group": "86343ee9.2d5b4",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Alle Karten entfernen",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "red",
+        "icon": "fa-exclamation-triangle",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 240,
+        "y": 820,
+        "wires": [
+            [
+                "f86ab03a.ad4d88"
+            ]
+        ]
+    },
+    {
+        "id": "f86ab03a.ad4d88",
+        "type": "change",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "action",
+                "pt": "msg",
+                "to": "clear",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 820,
+        "wires": [
+            [
+                "66788f23.ffbea"
+            ]
+        ]
+    },
+    {
+        "id": "95a386ad.533078",
+        "type": "ui_text",
+        "z": "7f309b8e.76138c",
+        "group": "380ffa3e.f220e6",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 1250,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "a9288004.9175",
+        "type": "debug",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "8c079b6f.aa59a",
+        "type": "delay",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 490,
+        "y": 200,
+        "wires": [
+            [
+                "e4e5b651.4d74b8"
+            ]
+        ]
+    },
+    {
+        "id": "e4e5b651.4d74b8",
+        "type": "function",
+        "z": "7f309b8e.76138c",
+        "name": "Letzte Playlist in Variable speichern",
+        "func": "flow.set(\"lastPlaylist\", msg.payload);\nnode.log(flow.get(\"lastPlaylist\"));\nmsg.payload=flow.get(\"lastPlaylist\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 760,
+        "y": 200,
+        "wires": [
+            [
+                "f23f8981.b603b"
+            ]
+        ]
+    },
+    {
+        "id": "f23f8981.b603b",
+        "type": "debug",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1010,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "f26dfd12.e19e4",
+        "type": "switch",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "lastPlaylist",
+                "vt": "flow"
+            },
+            {
+                "t": "neq",
+                "v": "lastPlaylist",
+                "vt": "flow"
+            }
+        ],
+        "checkall": "true",
+        "repair": true,
+        "outputs": 2,
+        "x": 490,
+        "y": 300,
+        "wires": [
+            [
+                "33d9b5ae.a1efd2"
+            ],
+            [
+                "3d0e2da3.464db2"
+            ]
+        ]
+    },
+    {
+        "id": "3d0e2da3.464db2",
+        "type": "sonos-universal",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "group.clear.queue",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 690,
+        "y": 320,
+        "wires": [
+            [
+                "35fab78b.36938"
+            ]
+        ]
+    },
+    {
+        "id": "c457b6ec.07de88",
+        "type": "sonos-universal",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "group.play.queue",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 970,
+        "y": 320,
+        "wires": [
+            [
+                "23baf16b.b32d6e"
+            ]
+        ]
+    },
+    {
+        "id": "35fab78b.36938",
+        "type": "sonos-manage-mysonos",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "library.queue.playlist",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 820,
+        "y": 380,
+        "wires": [
+            [
+                "c457b6ec.07de88"
+            ]
+        ]
+    },
+    {
+        "id": "23baf16b.b32d6e",
+        "type": "debug",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1170,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "33d9b5ae.a1efd2",
+        "type": "sonos-universal",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "group.next.track",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 680,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "45d65c58.11bebc",
+        "type": "sonos-universal",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "group.get.playbackstate",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 630,
+        "y": 980,
+        "wires": [
+            [
+                "a9288004.9175",
+                "c35d8160.819a7"
+            ]
+        ]
+    },
+    {
+        "id": "44b8574e.31491",
+        "type": "sonos-universal",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "group.toggle.playback",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 380,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5cd4c374.f43024",
+        "type": "delay",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 370,
+        "y": 980,
+        "wires": [
+            [
+                "45d65c58.11bebc"
+            ]
+        ]
+    },
+    {
+        "id": "c35d8160.819a7",
+        "type": "switch",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "transitioning",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "paused",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 870,
+        "y": 980,
+        "wires": [
+            [
+                "2f175543.320d42"
+            ],
+            [
+                "95a386ad.533078"
+            ]
+        ]
+    },
+    {
+        "id": "2f175543.320d42",
+        "type": "change",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "playing",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 960,
+        "wires": [
+            [
+                "95a386ad.533078"
+            ]
+        ]
+    },
+    {
+        "id": "1be9f6b2.c8bf59",
+        "type": "sonos-universal",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "group.clear.queue",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 450,
+        "y": 1200,
+        "wires": [
+            [
+                "84f969d0.6aebf"
+            ]
+        ]
+    },
+    {
+        "id": "84f969d0.6aebf",
+        "type": "sonos-manage-mysonos",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "library.queue.playlist",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 660,
+        "y": 1200,
+        "wires": [
+            [
+                "ffce03fc.9fe5c"
+            ]
+        ]
+    },
+    {
+        "id": "ffce03fc.9fe5c",
+        "type": "sonos-universal",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "group.play.queue",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 890,
+        "y": 1200,
+        "wires": [
+            [
+                "92dfbed0.70dc3"
+            ]
+        ]
+    },
+    {
+        "id": "92dfbed0.70dc3",
+        "type": "debug",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1090,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "8da93639.254328",
+        "type": "inject",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "topic": "",
+        "payload": "Titel der Playlist",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 260,
+        "y": 1200,
+        "wires": [
+            [
+                "1be9f6b2.c8bf59"
+            ]
+        ]
+    },
+    {
+        "id": "22a005e2.488672",
+        "type": "sonos-manage-mysonos",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "message",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 460,
+        "y": 1340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cc8030d1.e2af8",
+        "type": "sonos-universal",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "message",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 460,
+        "y": 1440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9aed013e.fdb8b8",
+        "type": "mqtt in",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "topic": "Sonos/Kind1",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "92eec3fd.c48a38",
+        "x": 110,
+        "y": 1840,
+        "wires": [
+            [
+                "95b89a87.fc7358"
+            ]
+        ]
+    },
+    {
+        "id": "95b89a87.fc7358",
+        "type": "change",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 220,
+        "y": 1920,
+        "wires": [
+            [
+                "9952ac71.16dcd"
+            ]
+        ]
+    },
+    {
+        "id": "9952ac71.16dcd",
+        "type": "key-value-read",
+        "z": "7f309b8e.76138c",
+        "store": "316a9d4.22170e2",
+        "key": "",
+        "name": "",
+        "x": 310,
+        "y": 1840,
+        "wires": [
+            [
+                "bec713d0.b112b"
+            ]
+        ]
+    },
+    {
+        "id": "bec713d0.b112b",
+        "type": "sonos-universal",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "group.clear.queue",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 450,
+        "y": 1920,
+        "wires": [
+            [
+                "6ce6be60.436e28"
+            ]
+        ]
+    },
+    {
+        "id": "6ce6be60.436e28",
+        "type": "sonos-manage-mysonos",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "library.queue.playlist",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 620,
+        "y": 1840,
+        "wires": [
+            [
+                "c4edc30c.d230f8"
+            ]
+        ]
+    },
+    {
+        "id": "c4edc30c.d230f8",
+        "type": "sonos-universal",
+        "z": "7f309b8e.76138c",
+        "confignode": "5410bc45.3b160c",
+        "compatibilityMode": false,
+        "command": "group.play.queue",
+        "state": "",
+        "stateType": "str",
+        "name": "",
+        "x": 730,
+        "y": 1920,
+        "wires": [
+            [
+                "878aae6a.afc28"
+            ]
+        ]
+    },
+    {
+        "id": "878aae6a.afc28",
+        "type": "debug",
+        "z": "7f309b8e.76138c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "309c094e.c46856",
+        "type": "comment",
+        "z": "7f309b8e.76138c",
+        "name": "Universal Node",
+        "info": "",
+        "x": 480,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "b8133dff.b5aec8",
+        "type": "comment",
+        "z": "7f309b8e.76138c",
+        "name": "My Sonos Node",
+        "info": "",
+        "x": 480,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "92eec3fd.c48a38",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "mqttOutputNodeKonnemann",
+        "broker": "192.168.178.46",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "316a9d4.22170e2",
+        "type": "key-value-store",
+        "z": "",
+        "filepath": "store.json",
+        "namespace": "",
+        "name": "Playlists"
+    },
+    {
+        "id": "86343ee9.2d5b4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Playlists managen",
+        "tab": "1f61b95.67148c7",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "380ffa3e.f220e6",
+        "type": "ui_group",
+        "z": "",
+        "name": "Sonos in Niklas Zimmer Steuerung",
+        "tab": "1f61b95.67148c7",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "5410bc45.3b160c",
+        "type": "sonos-config",
+        "z": "",
+        "name": "Sonos Kind1",
+        "serialnum": "34-7E-5C-F0-A3-C6:D",
+        "ipaddress": "192.168.178.120"
+    },
+    {
+        "id": "1f61b95.67148c7",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Sonos",
+        "icon": "fa-music ",
+        "order": 6,
+        "disabled": false,
+        "hidden": false
+    }
+]
